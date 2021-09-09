@@ -61,9 +61,13 @@ export default {
         let response = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.APIkey}`
         );
+
         this.temporaryData = await response.json();
-      } catch (error) {
-        console.log(error);
+
+       if (!response.ok) throw new Error('Request failed.')
+      } catch (e) {
+        alert(this.city + ' is not valid city!');
+        console.log(e);
       }
 
       this.lat = this.temporaryData.coord.lat;
